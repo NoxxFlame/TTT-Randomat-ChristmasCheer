@@ -2,8 +2,6 @@ AddCSLuaFile()
 
 local IsValid = IsValid
 local math = math
-local net = net
-local player = player
 local surface = surface
 local timer = timer
 local util = util
@@ -282,7 +280,7 @@ else
         self:SetState(STATE_ERROR)
         self:SetStartTime(CurTime())
         self:SetMessage(msg)
-        self:SetNextPrimaryFire(CurTime() + 0.1)
+        self:SetNextPrimaryFire(CurTime() + 0.75)
         self:UnfreezeTarget()
 
         timer.Simple(0.75, function()
