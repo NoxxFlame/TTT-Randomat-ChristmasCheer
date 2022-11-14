@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+/.idea/
+/.vscode/
+# Datasource local storage ignored files
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+/TTT-Custom-Roles.iml
+/update.bat
