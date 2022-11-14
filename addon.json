@@ -1,0 +1,16 @@
+{
+  "title": "TTT Randomat 2.0 - \"Christmas Cheer\" Event",
+  "type": "ServerContent",
+  "ignore": [
+    ".git*",
+    ".vscode*",
+    "*.md",
+    "*.iml",
+    ".idea*",
+    "*.psd",
+    "*.bat",
+    "*.vcproj",
+    "*.svn*",
+    "LICENSE"
+  ]
+}

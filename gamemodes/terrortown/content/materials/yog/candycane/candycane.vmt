@@ -1,0 +1,52 @@
+VertexLitGeneric
+{
+
+	// MAIN SETTINGS
+	$basetexture                "yog/candycane/diffuse"
+	$bumpmap                    "yog/candycane/normal"
+	$halflambert                1
+
+	// PHONG
+	$phong                      1
+	$phongboost                 0.5
+	$phongfresnelranges         "[.83 .83 1]"
+	$phongtint                  "[1 1 1]"
+	$phongexponenttexture       "yog/candycane/gloss"
+	$normalmapalphaphongmask    1
+
+	// ENVIRONMENT MAP
+	$envmap                     env_cubemap
+	$envmaptint                 "[.04 .04 .04]"
+	$envmapfresnel              1
+	$normalmapalphaenvmapmask   1
+
+	// RIM LIGHT
+	$rimlight                   1
+	$rimlightexponent           66
+	$rimlightboost              0.83
+	$rimmask                    1
+
+	// BLOOD
+	$detail                     "yog/candycane/blood"
+	$detailscale                1
+	$detailblendfactor          0.001
+	$detailblendmode            0
+	$detailAmount               0
+
+	Proxies
+	{
+
+		BloodyHands
+		{
+			resultVar           $detailAmount
+		}
+
+		Equals
+		{
+			srcVar1             $detailAmount
+			resultVar           $detailblendfactor
+		}
+
+	}
+
+}
