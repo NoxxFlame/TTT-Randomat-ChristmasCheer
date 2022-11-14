@@ -192,7 +192,7 @@ function EVENT:Begin()
             return ply:IsRole(ROLE_ELF)
         end
 
-        if ply:IsRole(ROLE_ELF) and GetRoundState() == ROUND_ACTIVE then
+        if ply:IsRole(ROLE_ELF) and ply:IsRoleActive() and GetRoundState() == ROUND_ACTIVE then
             return false
         end
     end)
