@@ -207,12 +207,6 @@ function EVENT:End()
         p:SetNWBool("ElfActive", false)
         p:SetNWBool("OriginalElf", false)
     end
-
-    self:RemoveHook("TTTPrintResultMessage")
-    self:RemoveHook("TTTCheckForWin")
-    self:RemoveHook("TTTPlayerRoleChanged")
-    self:RemoveHook("ScalePlayerDamage")
-    self:RemoveHook("PlayerCanPickupWeapon")
 end
 
 function EVENT:Condition()
