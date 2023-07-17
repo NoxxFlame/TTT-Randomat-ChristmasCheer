@@ -96,7 +96,7 @@ function EVENT:Begin()
             if v:Alive() and v:IsTerror() then
                 if v:IsRole(ROLE_ELF) then
                     elf_alive = true
-                else
+                elseif not v:ShouldActLikeJester() then
                     other_alive = true
                 end
             end
