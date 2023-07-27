@@ -100,7 +100,7 @@ net.Receive("RandomatChristmasCheerBegin", function()
             surface.SetFont("TabLarge")
             surface.SetTextColor(255, 255, 255, 230)
 
-            local remaining = math.max(0, GetGlobalFloat("ttt_elf_actiavte", 0) - CurTime())
+            local remaining = math.max(0, GetGlobalFloat("ttt_elf_activate", 0) - CurTime())
             local text = LANG.GetParamTranslation("lootgoblin_hud", { time = util.SimpleTime(remaining, "%02i:%02i") })
             local _, h = surface.GetTextSize(text)
 

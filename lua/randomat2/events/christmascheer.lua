@@ -36,7 +36,7 @@ local function ActivateElf(p)
     if timer.Exists("RdmtElfActivate") then
         timer.UnPause("RdmtElfActivate")
         local remaining = timer.TimeLeft("RdmtElfActivate")
-        SetGlobalFloat("ttt_elf_actiavte", CurTime() + remaining)
+        SetGlobalFloat("ttt_elf_activate", CurTime() + remaining)
         p:GodEnable()
     else
         p:SetNWBool("ElfActive", true)
@@ -135,7 +135,7 @@ function EVENT:Begin()
     timer.Simple(0.5, function()
         choice:PrintMessage(HUD_PRINTTALK, "You are the " .. ROLE_STRINGS[ROLE_ELF] .. "! You have " .. activateTime .. " seconds until you are revealed and are invulnerable until then!")
     end)
-    SetGlobalFloat("ttt_elf_actiavte", CurTime() + activateTime)
+    SetGlobalFloat("ttt_elf_activate", CurTime() + activateTime)
 
     if GetConVar("randomat_christmascheer_disable_santa"):GetBool() then
         ROLE_SANTA = ROLE_SANTA or -1
