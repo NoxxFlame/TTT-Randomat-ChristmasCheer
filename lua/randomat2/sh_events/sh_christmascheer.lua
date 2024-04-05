@@ -26,12 +26,10 @@ function CHRISTMASCHEER:RegisterRoles()
             ["english"] = {
                 ["candycant_help_pri"] = "Use {primaryfire} to spread Christmas cheer"
             }
-        }
+        },
+        blockspawnconvars = true
     }
 
-    CreateConVar("ttt_elf_enabled", "0", FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_spawn_weight", "1")
-    CreateConVar("ttt_elf_min_players", "0")
     CreateConVar("ttt_elf_starting_health", "50")
     CreateConVar("ttt_elf_max_health", "50")
     CreateConVar("ttt_elf_name", role.name, FCVAR_REPLICATED)
