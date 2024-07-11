@@ -2,14 +2,6 @@ CHRISTMASCHEER = {
     registered = false
 }
 
-if SERVER then
-    resource.AddFile("materials/vgui/ttt/icon_elf.vmt")
-    resource.AddFile("materials/vgui/ttt/sprite_elf.vmt")
-    resource.AddSingleFile("materials/vgui/ttt/sprite_elf_noz.vmt")
-    resource.AddSingleFile("materials/vgui/ttt/score_elf.png")
-    resource.AddSingleFile("materials/vgui/ttt/tab_elf.png")
-end
-
 function CHRISTMASCHEER:RegisterRoles()
     if self.registered then return end
 
