@@ -1,14 +1,11 @@
 local EVENT = {}
 
-util.AddNetworkString("RandomatChristmasCheerBegin")
-util.AddNetworkString("RandomatChristmasCheerEnd")
-
 local eventnames = {}
 table.insert(eventnames, "What do you get if you eat Christmas decorations? Tinselitis!")
 table.insert(eventnames, "What do Santa's little helpers learn at school? The elf-abet!")
 table.insert(eventnames, "Who hides in the bakery at Christmas? A mince spy!")
 table.insert(eventnames, "Who delivers presents to pets? Santa Paws!")
-table.insert(eventnames, "Who is Santa’s favourite singer? Elf-is Presley!")
+table.insert(eventnames, "Who is Santa's favourite singer? Elf-is Presley!")
 table.insert(eventnames, "What do you call a reindeer who can't see? No-eye deer!")
 table.insert(eventnames, "How do snowmen get around? They ride an icicle!")
 table.insert(eventnames, "What does Santa spend his wages on? Jingle bills!")
@@ -17,9 +14,9 @@ table.insert(eventnames, "What cars do elves drive? Toy-otas!")
 table.insert(eventnames, "What do you call an obnoxious reindeer? Rude-olph!")
 table.insert(eventnames, "What do the elves cook with in the kitchen? Utinsels!")
 
-CreateConVar("randomat_christmascheer_activation_timer", 20, {FCVAR_ARCHIVE, FCVAR_NOTIFY}, "Time in seconds before the starting elves are revealed", 5, 90)
-CreateConVar("randomat_christmascheer_elf_size", 0.5, FCVAR_NONE, "The size multiplier for the elf to use when they are revealed (e.g. 0.5 = 50% size)", 0, 1)
-CreateConVar("randomat_christmascheer_disable_santa", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY}, "Whether players with the Santa role should be switched to regular detectives")
+CreateConVar("randomat_christmascheer_activation_timer", 20, FCVAR_ARCHIVE, "Time in seconds before the starting elves are revealed", 5, 90)
+CreateConVar("randomat_christmascheer_elf_size", 0.5, FCVAR_ARCHIVE, "The size multiplier for the elf to use when they are revealed (e.g. 0.5 = 50% size)", 0, 1)
+CreateConVar("randomat_christmascheer_disable_santa", 1, FCVAR_ARCHIVE, "Whether players with the Santa role should be switched to regular detectives")
 
 
 local function GetEventDescription()
@@ -70,12 +67,13 @@ local function DeactivateElf(p)
     end
 end
 
+function EVENT:Initialize()
+    timer.Simple(1, function()
+        CHRISTMASCHEER:RegisterRoles()
+    end)
+end
+
 function EVENT:Begin()
-    net.Start("RandomatChristmasCheerBegin")
-    net.Broadcast()
-
-    CHRISTMASCHEER:RegisterRoles()
-
     for _, p in ipairs(self:GetPlayers(false)) do
         p:SetNWBool("ElfActive", false)
         p:SetNWBool("OriginalElf", false)
@@ -199,9 +197,6 @@ function EVENT:Begin()
 end
 
 function EVENT:End()
-    net.Start("RandomatChristmasCheerEnd")
-    net.Broadcast()
-
     timer.Remove("RdmtElfActivate")
     for _, p in ipairs(self:GetPlayers(false)) do
         p:SetNWBool("ElfActive", false)
