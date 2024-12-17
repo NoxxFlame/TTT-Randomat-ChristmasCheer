@@ -1,31 +1,38 @@
-net.Receive("RandomatChristmasCheerBegin", function()
-    CHRISTMASCHEER:RegisterRoles()
+local EVENT = {}
+EVENT.id = "christmascheer"
 
-    hook.Add("TTTScoringWinTitle", "RandomatElfWinScoring", function(wintype, wintitle, title)
+function EVENT:Initialize()
+    timer.Simple(1, function()
+        CHRISTMASCHEER:RegisterRoles()
+    end)
+end
+
+function EVENT:Begin()
+    self:AddHook("TTTScoringWinTitle", function(wintype, wintitle, title)
         if wintype == WIN_ELF then
             return { txt = "hilite_win_role_plural", params = { role = ROLE_STRINGS_PLURAL[ROLE_ELF]:upper() }, c = ROLE_COLORS[ROLE_ELF] }
         end
     end)
 
-    hook.Add("TTTEventFinishText", "RandomatElfEventFinishText", function(e)
+    self:AddHook("TTTEventFinishText", function(e)
         if e.win == WIN_ELF then
             return LANG.GetTranslation("ev_win_elf")
         end
     end)
 
-    hook.Add("TTTEventFinishIconText", "RandomatElfEventFinishText", function(e, win_string, role_string)
+    self:AddHook("TTTEventFinishIconText", function(e, win_string, role_string)
         if e.win == WIN_ELF then
             return win_string, ROLE_STRINGS_PLURAL[ROLE_ELF]
         end
     end)
 
-    hook.Add("TTTTutorialRoleEnabled", "RandomatElfTutorialRoleEnabled", function(role)
+    self:AddHook("TTTTutorialRoleEnabled", function(role)
         if role == ROLE_ELF and Randomat:IsEventActive("christmascheer") then
             return true
         end
     end)
 
-    hook.Add("TTTTutorialRoleText", "RandomatElfTutorialRoleText", function(role, titleLabel)
+    self:AddHook("TTTTutorialRoleText", function(role, titleLabel)
         if role ~= ROLE_ELF then return end
 
         local roleColor = GetRoleTeamColor(ROLE_TEAM_INDEPENDENT)
@@ -38,19 +45,19 @@ net.Receive("RandomatChristmasCheerBegin", function()
     ---------------
 
     -- Reveal the loot goblin to all players once activated
-    hook.Add("TTTTargetIDPlayerRoleIcon", "Elf_TTTTargetIDPlayerRoleIcon", function(ply, client, role, noz, colorRole, hideBeggar, showJester, hideBodysnatcher)
+    self:AddHook("TTTTargetIDPlayerRoleIcon", function(ply, client, role, noz, colorRole, hideBeggar, showJester, hideBodysnatcher)
         if ply:IsActiveRole(ROLE_ELF) and ply:IsRoleActive() then
             return ROLE_ELF, false
         end
     end)
 
-    hook.Add("TTTTargetIDPlayerRing", "Elf_TTTTargetIDPlayerRing", function(ent, client, ringVisible)
+    self:AddHook("TTTTargetIDPlayerRing", function(ent, client, ringVisible)
         if IsPlayer(ent) and ent:IsActiveRole(ROLE_ELF) and ent:IsRoleActive() then
             return true, ROLE_COLORS_RADAR[ROLE_ELF]
         end
     end)
 
-    hook.Add("TTTTargetIDPlayerText", "Elf_TTTTargetIDPlayerText", function(ent, client, text, clr, secondaryText)
+    self:AddHook("TTTTargetIDPlayerText", function(ent, client, text, clr, secondaryText)
         if IsPlayer(ent) and ent:IsActiveRole(ROLE_ELF) and ent:IsRoleActive() then
             return string.upper(ROLE_STRINGS[ROLE_ELF]), ROLE_COLORS_RADAR[ROLE_ELF]
         end
@@ -69,7 +76,7 @@ net.Receive("RandomatChristmasCheerBegin", function()
     -- SCOREBOARD --
     ----------------
 
-    hook.Add("TTTScoreboardPlayerRole", "Elf_TTTScoreboardPlayerRole", function(ply, client, color, roleFileName)
+    self:AddHook("TTTScoreboardPlayerRole", function(ply, client, color, roleFileName)
         if ply:IsActiveRole(ROLE_ELF) and ply:IsRoleActive() then
             return ROLE_COLORS_SCOREBOARD[ROLE_ELF], ROLE_STRINGS_SHORT[ROLE_ELF]
         end
@@ -88,7 +95,7 @@ net.Receive("RandomatChristmasCheerBegin", function()
     -- HUD --
     ---------
 
-    hook.Add("TTTHUDInfoPaint", "Elf_TTTHUDInfoPaint", function(client, label_left, label_top, active_labels)
+    self:AddHook("TTTHUDInfoPaint", function(client, label_left, label_top, active_labels)
         local hide_role = false
         if ConVarExists("ttt_hide_role") then
             hide_role = GetConVar("ttt_hide_role"):GetBool()
@@ -119,7 +126,7 @@ net.Receive("RandomatChristmasCheerBegin", function()
     -- SUMMARY --
     -------------
 
-    hook.Add("TTTScoringSummaryRender", "Elf_TTTScoringSummaryRender", function(ply, roleFileName, groupingRole, roleColor, name, startingRole, finalRole)
+    self:AddHook("TTTScoringSummaryRender", function(ply, roleFileName, groupingRole, roleColor, name, startingRole, finalRole)
         if finalRole == ROLE_ELF and not ply:GetNWBool("OriginalElf", false) then
             return ROLE_STRINGS_SHORT[startingRole], startingRole
         end
@@ -129,23 +136,10 @@ net.Receive("RandomatChristmasCheerBegin", function()
     -- ROUND END SOUND --
     ---------------------
 
-    hook.Add("TTTChooseRoundEndSound", "Elf_TTTChooseRoundEndSound", function(ply, result)
+    self:AddHook("TTTChooseRoundEndSound", function(ply, result)
         if result == WIN_ELF then return "jinglebells.wav" end
     end)
 
-end)
+end
 
-net.Receive("RandomatChristmasCheerEnd", function()
-    hook.Remove("TTTScoringWinTitle", "RandomatElfWinScoring")
-    hook.Remove("TTTEventFinishText", "RandomatElfEventFinishText")
-    hook.Remove("TTTEventFinishIconText", "RandomatElfEventFinishText")
-    hook.Remove("TTTTutorialRoleEnabled", "RandomatElfTutorialRoleEnabled")
-    hook.Remove("TTTTutorialRoleText", "RandomatElfTutorialRoleText")
-    hook.Remove("TTTTargetIDPlayerRoleIcon", "Elf_TTTTargetIDPlayerRoleIcon")
-    hook.Remove("TTTTargetIDPlayerRing", "Elf_TTTTargetIDPlayerRing")
-    hook.Remove("TTTTargetIDPlayerText", "Elf_TTTTargetIDPlayerText")
-    hook.Remove("TTTScoreboardPlayerRole", "Elf_TTTScoreboardPlayerRole")
-    hook.Remove("TTTHUDInfoPaint", "Elf_TTTHUDInfoPaint")
-    hook.Remove("TTTScoringSummaryRender", "Elf_TTTScoringSummaryRender")
-    -- hook.Remove("TTTChooseRoundEndSound", "Elf_TTTChooseRoundEndSound")
-end)
+Randomat:register(EVENT)
