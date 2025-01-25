@@ -126,6 +126,13 @@ function SWEP:DoFreeze()
     self.TargetEntity:Freeze(true)
 end
 
+function SWEP:ResetFreeze()
+    if CLIENT then return end
+    self.TargetEntity:SetNWInt("ElfFreezeCount", 0)
+    self.TargetEntity:Freeze(false)
+    self.TargetEntity = nil
+end
+
 function SWEP:DoUnfreeze()
     if CLIENT then return end
     local freeze_count = self:AdjustFreezeCount(self.TargetEntity, -1, 1)
@@ -155,11 +162,15 @@ end
 
 function SWEP:DoConvert()
     local ply = self.TargetEntity
+    ply:StripRoleWeapons()
+    if not ply:HasWeapon("weapon_zm_improvised") then
+        ply:Give("weapon_zm_improvised")
+    end
     ply:SetRole(ROLE_ELF)
 
     -- Not actually an error, but it resets the things we want
     self:FireError()
-    self:DoUnfreeze()
+    self:ResetFreeze()
 
     SendFullStateUpdate()
     -- Reset the victim's max health
