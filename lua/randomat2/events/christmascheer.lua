@@ -108,13 +108,13 @@ function EVENT:Begin()
     end)
 
     local choice = nil
-    -- First try and change an independent to the elf
+    -- First try and change a jester to the elf
     for _, p in ipairs(self:GetAlivePlayers(true)) do
-        if Randomat:IsIndependentTeam(p) and choice == nil then
+        if Randomat:IsJesterTeam(p) and choice == nil then
             choice = p
         end
     end
-    -- If there are no independents, change a non-detective innocent to the elf
+    -- If there are no jesters, change a non-detective innocent to the elf
     if choice == nil then
         for _, p in ipairs(self:GetAlivePlayers(true)) do
             if Randomat:IsInnocentTeam(p) and not Randomat:IsDetectiveLike(p) and choice == nil then
