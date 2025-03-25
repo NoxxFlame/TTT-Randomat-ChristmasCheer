@@ -209,7 +209,7 @@ function EVENT:Condition()
 
     local options = 0
     for _, p in ipairs(self:GetAlivePlayers()) do
-        if Randomat:IsIndependentTeam(p) or (Randomat:IsInnocentTeam(p) and not Randomat:IsDetectiveLike(p)) then
+        if Randomat:IsJesterTeam(p) or (Randomat:IsInnocentTeam(p) and not Randomat:IsDetectiveLike(p)) then
             options = options + 1
         end
     end

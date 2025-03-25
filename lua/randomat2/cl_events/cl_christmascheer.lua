@@ -35,9 +35,8 @@ function EVENT:Begin()
     self:AddHook("TTTTutorialRoleText", function(role, titleLabel)
         if role ~= ROLE_ELF then return end
 
-        local roleColor = GetRoleTeamColor(ROLE_TEAM_INDEPENDENT)
-        local html = "The " .. ROLE_STRINGS[role] .. " is an <span style='color: rgb(" .. roleColor.r .. ", " .. roleColor.g .. ", " .. roleColor.b .. ")'>independent</span> role whose job is to spread Christmas cheer to all other players and convert them into " .. ROLE_STRINGS_PLURAL[role] .. "using their <span style='color: rgb(\" .. roleColor.r .. \", \" .. roleColor.g .. \", \" .. roleColor.b .. \")'>Candy Cane</span>. Players will be frozen in place while they are being converted."
-        return html
+        local roleColor = GetRoleTeamColor(ROLE_TEAM_JESTER)
+        return "The " .. ROLE_STRINGS[role] .. " is a <span style='color: rgb(" .. roleColor.r .. ", " .. roleColor.g .. ", " .. roleColor.b .. ")'>jester</span> role whose job is to spread Christmas cheer to all other players and convert them into " .. ROLE_STRINGS_PLURAL[role] .. "using their <span style='color: rgb(\" .. roleColor.r .. \", \" .. roleColor.g .. \", \" .. roleColor.b .. \")'>Candy Cane</span>. Players will be frozen in place while they are being converted."
     end)
 
     ---------------
