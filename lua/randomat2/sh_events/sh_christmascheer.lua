@@ -13,7 +13,7 @@ function CHRISTMASCHEER:RegisterRoles()
         nameplural = "Elves",
         nameext = "an Elf",
         nameshort = "elf",
-        team = ROLE_TEAM_INDEPENDENT,
+        team = ROLE_TEAM_JESTER,
         translations = {
             ["english"] = {
                 ["candycant_help_pri"] = "Use {primaryfire} to spread Christmas cheer"
@@ -26,12 +26,7 @@ function CHRISTMASCHEER:RegisterRoles()
     CreateConVar("ttt_elf_max_health", "50")
     CreateConVar("ttt_elf_name", role.name, FCVAR_REPLICATED)
     CreateConVar("ttt_elf_name_plural", role.nameplural, FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_name_article", role.nameext, FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_shop_random_percent", "0", FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_shop_random_enabled", "0", FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_can_see_jesters", "0", FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_update_scoreboard", "0", FCVAR_REPLICATED)
-    CreateConVar("ttt_elf_shop_mode", "0", FCVAR_REPLICATED)
+    CreateConVar("ttt_elf_name_article", "an", FCVAR_REPLICATED)
     RegisterRole(role)
 
     ROLE_IS_ACTIVE[ROLE_ELF] = function(ply)
