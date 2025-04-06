@@ -205,7 +205,7 @@ function EVENT:End()
 end
 
 function EVENT:Condition()
-    if not CR_VERSION or not CRVersion("1.0.14") then return false end
+    if not CR_VERSION then return false end
 
     local options = 0
     for _, p in ipairs(self:GetAlivePlayers()) do
