@@ -136,7 +136,7 @@ end
 function SWEP:DoUnfreeze()
     if CLIENT then return end
     local freeze_count = self:AdjustFreezeCount(self.TargetEntity, -1, 1)
-    if freeze_count == 0 then
+    if freeze_count <= 0 then
         self.TargetEntity:Freeze(false)
     end
     self.TargetEntity = nil
