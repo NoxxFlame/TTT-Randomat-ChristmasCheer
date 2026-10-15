@@ -19,7 +19,8 @@ function CHRISTMASCHEER:RegisterRoles()
                 ["candycant_help_pri"] = "Use {primaryfire} to spread Christmas cheer"
             }
         },
-        blockspawnconvars = true
+        blockspawnconvars = true,
+        hasteamchat = true
     }
 
     CreateConVar("ttt_elf_starting_health", "50")
